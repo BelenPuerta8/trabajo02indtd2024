@@ -9,4 +9,71 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
+<br>
+
+# <u>*Elección de una estrategia de marketing digital para una empresa*</u>
+
+La empresa SportyFit, especializada en ropa deportiva, desea lanzar una campaña de marketing digital para aumentar sus ventas en línea y mejorar su visibilidad en redes sociales. La empresa ha identificado tres posibles estrategias de marketing digital y necesita seleccionar la más adecuada para lograr sus objetivos.
+Las <u>estrategias</u> de marketing digital que se han propuesto son:<br>
+- **Marketing de Contenidos**: Creación de contenido informativo y                                                 visual para atraer clientes
+                               potenciales.<br>
+- **Publicidad en Redes Sociales** : Anuncios pagados en plataformas                                                     como Instagram y Facebook para
+                                    captar tráfico rápidamente. <br>
+- **Optimización en Motores de Búsqueda (SEO)**: Mejorar el posicionamiento del                                                      sitio web para atraer tráfico
+                                                  orgánico. <br>
+
+La empresa ha definido tres <u>criterios</u> clave para evaluar cada estrategia: <br>
+- **Costo (C1)**: Presupuesto necesario para implementar y mantener la estrategia.<br>
+- **Alcance (C2)**: Tamaño de la audiencia potencial a la que se puede llegar.<br>
+- **Retorno de Inversión (ROI) (C3)**: Beneficio financiero estimado en comparación con la inversión.<br>
+
+A continuación se presentan la matriz de comparación entre criterios y las matrices de comparación entre alternativas según cada criterio.<br>
+
+##### **MATRIZ DE COMPARACIÓN ENTRE CRITERIOS:**
+$$
+\begin{array}{c|ccc}
+\text{CRITERIOS} & \text{Costo} & \text{Alcance} & \text{ROI} \\
+\hline
+\text{Costo} & 1 & \frac{1}{3} & \frac{1}{2} \\
+\text{Alcance} & 3 & 1 & 2 \\
+\text{ROI} & 2 & \frac{1}{2} & 1 \\
+\end{array}
+$$
+
+
+
+##### **MATRIZ DE COMPARACIÓN ENTRE ALTERNATIVAS SEGÚN CRITERIOS:**
+###### PARA EL CRITERIO COSTO:
+$$
+\begin{array}{c|ccc}
+\text{COSTO} & \text{Marketing de Contenidos} & \text{Publicidad en Redes Sociales} & \text{SEO} \\
+\hline
+\text{Marketing de Contenidos} & 1 & 3 & 2 \\
+\text{Publicidad en Redes Sociales} & \frac{1}{3} & 1 & \frac{1}{2} \\
+\text{SEO} & \frac{1}{2} & 2 & 1 \\
+\end{array}
+$$
+<br>
+
+###### PARA EL CRITERIO ALCANCE:
+$$
+\begin{array}{c|ccc}
+\text{ALCANCE} & \text{Marketing de Contenidos} & \text{Publicidad en Redes Sociales} & \text{SEO} \\
+\hline
+\text{Marketing de Contenidos} & 1 & \frac{1}{2} & \frac{1}{3} \\
+\text{Publicidad en Redes Sociales} & 2 & 1 & \frac{1}{2} \\
+\text{SEO} & 3 & 2 & 1 \\
+\end{array}
+$$
+<br>
+
+###### PARA EL CRITERIO ROI:
+$$
+\begin{array}{c|ccc}
+\text{ROI} & \text{Marketing de Contenidos} & \text{Publicidad en Redes Sociales} & \text{SEO} \\
+\hline
+\text{Marketing de Contenidos} & 1 & \frac{1}{4} & \frac{1}{3} \\
+\text{Publicidad en Redes Sociales} & 4 & 1 & \frac{1}{2} \\
+\text{SEO} & 3 & 2 & 1 \\
+\end{array}
+$$
