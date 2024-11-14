@@ -1,0 +1,339 @@
+---
+title: "Trabajo 2 Teoría de la Decisión"
+author: "Belén Puerta González"
+date: "2024-11-11"
+output:
+  html_document:
+    toc: true
+    toc_depth: 3
+  pdf_document:
+    toc: true
+    toc_depth: '3'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE}
+source("C:/Users/Usuario/OneDrive/Escritorio/trabajo02indtd2024/teoriadecision_funciones_bayesiana.R")
+source("C:/Users/Usuario/OneDrive/Escritorio/trabajo02indtd2024/teoriadecision_funciones_incertidumbre.R")
+source("C:/Users/Usuario/OneDrive/Escritorio/trabajo02indtd2024/teoriadecision_funciones_multicriterio.R")
+source("C:/Users/Usuario/OneDrive/Escritorio/trabajo02indtd2024/teoriadecision_funciones_multicriterio_diagram.R")
+source("C:/Users/Usuario/OneDrive/Escritorio/trabajo02indtd2024/teoriadecision_funciones_multicriterio_utiles.R")
+```
+
+
+<br>
+
+# <u>*Elección de una estrategia de marketing digital para una empresa*</u>
+
+Una empresa de tecnología, **Tech Solutions**, desea elegir la mejor estrategia de marketing digital para el próximo año con el fin de mejorar su visibilidad, atraer más clientes y aumentar sus ventas. Para ello, ha identificado cinco alternativas de estrategias de marketing digital, cada una con características y costos distintos. Para decidir cuál es la mejor opción, se evaluarán los criterios que se consideran clave para el éxito de la campaña. Estos criterios son:
+
+1. **Alcance del público objetivo (puntuación sobre 100)**: Representa la capacidad de la estrategia para llegar a un gran número de personas en el mercado objetivo. 
+
+2. **Costo (miles de euros)**: Se refiere al costo estimado de implementación de la estrategia durante el año. 
+
+3. **Retorno de inversión (ROI, en porcentaje)**: Calcula la ganancia potencial en comparación con el costo de la estrategia.
+
+4. **Duración de la estrategia (meses)**: Tiempo durante el cual la estrategia tiene efecto y se espera que mantenga su impacto.
+
+5. **Capacidad de segmentación (puntuación sobre 100)**: Evalúa qué tan bien la estrategia puede personalizarse o dirigirse a nichos específicos.
+
+6. **Flexibilidad de ajustes (puntuación de 1 a 10)**: La capacidad de la estrategia para adaptarse a cambios en el mercado. Una puntuación más alta indica una mayor facilidad para realizar ajustes rápidos en la estrategia si es necesario.
+
+Se presentan cinco alternativas de estrategias de marketing digital que la empresa podría adoptar, junto con los datos relevantes para cada una de ellas:
+
+##### **A1: Publicidad en Redes Sociales**
+  - **Alcance del público objetivo**: 85 puntos
+  - **Costo**: 30 mil euros
+  - **Retorno de inversión (ROI)**: 150%
+  - **Duración de la estrategia**: 12 meses
+  - **Capacidad de segmentación**: 90 puntos
+  - **Flexibilidad de ajustes**: 9
+
+##### **A2: Marketing de Contenidos**
+  - **Alcance del público objetivo**: 70 puntos
+  - **Costo**: 20 mil euros
+  - **Retorno de inversión (ROI)**: 120%
+  - **Duración de la estrategia**: 18 meses
+  - **Capacidad de segmentación**: 80 puntos
+  - **Flexibilidad de ajustes**: 6
+
+##### **A3: Email Marketing**
+  - **Alcance del público objetivo**: 60 puntos
+  - **Costo**: 10 mil euros
+  - **Retorno de inversión (ROI)**: 200%
+  - **Duración de la estrategia**: 6 meses
+  - **Capacidad de segmentación**: 85 puntos
+  - **Flexibilidad de ajustes**: 8
+
+##### **A4: Publicidad en Buscadores (SEM)**
+  - **Alcance del público objetivo**: 75 puntos
+  - **Costo**: 25 mil euros
+  - **Retorno de inversión (ROI)**: 140%
+  - **Duración de la estrategia**: 9 meses
+  - **Capacidad de segmentación**: 88 puntos
+  - **Flexibilidad de ajustes**: 9
+
+##### **A5: Colaboraciones con Influencers**
+  - **Alcance del público objetivo**: 90 puntos
+  - **Costo**: 35 mil euros
+  - **Retorno de inversión (ROI)**: 130%
+  - **Duración de la estrategia**: 6 meses
+  - **Capacidad de segmentación**: 75 puntos
+  - **Flexibilidad de ajustes**: 6
+
+
+#### Pesos de los Criterios
+
+La empresa ha definido los pesos para cada criterio, considerando su importancia para el éxito de la estrategia de marketing:
+
+- **Alcance del público objetivo: 3** → Es importante que la estrategia tenga un alcance amplio para maximizar la visibilidad.
+- **Costo: 2** → Se debe considerar el presupuesto disponible.
+- **Retorno de inversión (ROI): 3.5** → Este es uno de los criterios más importantes, ya que representa la ganancia potencial de la estrategia.
+- **Duración de la estrategia: 1** → La duración es menos importante, pues se espera que cualquier estrategia tenga impacto en el corto o mediano plazo.
+- **Capacidad de segmentación: 2.5** → Es fundamental que la estrategia se dirija adecuadamente al público objetivo.
+- **Flexibilidad de ajustes: 2** → La capacidad de realizar cambios es importante para adaptarse a posibles cambios de mercado.
+
+
+Utilizando técnicas de análisis multicriterio como **AHP**, **ELECTRE**, y **PROMETHEE**, determina cuál de las estrategias de marketing digital es la mejor opción para *Tech Solutions* en base a los criterios y pesos mencionados.
+
+
+***
+***
+
+Analizando el enunciado, obtendríamos la siguiente tabla: 
+```{r warning=FALSE}
+library(knitr)
+
+# Definición de los criterios
+criterios <- c("Alcance del público objetivo", "Costo", "Retorno de inversión (ROI)", "Duración de la estrategia", "Capacidad de segmentación", "Flexibilidad de ajustes")
+
+# Definición de los valores Min/Max para cada criterio
+min_max <- c("Max", "Min", "Max", "Max", "Max", "Max")
+
+# Alternativas
+alternativas <- c("A1", "A2", "A3", "A4", "A5")
+
+# Definición de los valores para cada alternativa
+A1 <- c(85, 30, 150, 12, 90, 9)  # Publicidad en Redes Sociales
+A2 <- c(70, 20, 120, 18, 80, 6)  # Marketing de Contenidos
+A3 <- c(60, 10, 200, 6, 85, 8)   # Email Marketing
+A4 <- c(75, 25, 140, 9, 88, 9)   # Publicidad en Buscadores (SEM)
+A5 <- c(90, 35, 130, 6, 75, 6)   # Colaboraciones con Influencers
+
+# Pesos de los criterios
+p <- c(3, 2, 3.5, 1, 2.5, 2)
+
+# Valores de Min/Max (0 o 1) dependiendo si el valor debe ser minimizado o maximizado
+q <- c(1, 0, 1, 1, 1, 1)
+
+# Valores de los umbrales (valores arbitrarios para cada criterio de referencia)
+s <- c(90, 40, 220, 20, 100, 10)
+
+# Crear la tabla con los datos
+tabla <- data.frame("Criterios" = criterios, "Min/Max" = min_max, A1, A2, A3, A4, A5, p, q, s)
+
+# Mostrar la tabla
+kable(tabla, caption = "Tabla de Evaluación de Estrategias de Marketing Digital")
+
+```
+
+<br>
+
+#### Matriz de decisión
+```{r}
+datos = multicriterio.crea.matrizdecision(c(85, -30, 150, 12, 90, 9,
+                                            70, -20, 120, 18, 80, 6,
+                                            60, -10, 200, 6, 85, 8,
+                                            75, -25, 140, 9, 88, 9,
+                                            90, -35, 130, 6, 75, 6),
+                                          numalternativas = 5, numcriterios = 6,
+                                          v.nombresalt = alternativas, 
+                                          v.nombrescri = criterios)
+datos
+```
+
+
+***
+***
+
+
+## 1. MÉTODO PROMETHEE
+### 1.1. MÉTODO PROMETHEE I
+Antes de definir la tabla de preferencias veamos el número de función que le corresponde a cada cada criterio según su nivel de importancia:
+
+*Alcance del público objetivo (peso = 3): Este criterio se maximiza y busca gran visibilidad, por lo que una Función tipo III podría ser adecuada, ya que permite que la preferencia crezca linealmente conforme aumente el alcance. 
+
+*Costo (peso = 2): Aquí se busca minimizar el gasto. La Función tipo IV sería apropiada, dado que permite identificar diferencias pequeñas, medianas y grandes en costos, útil para presupuestos ajustados.
+
+*Retorno de inversión (ROI) (peso = 3.5): Este es un criterio fundamental en el que se busca maximizar. La Función tipo III es adecuada porque permite que la preferencia aumente conforme suba el ROI, reflejando la importancia de diferencias graduales en el retorno.
+
+*Duración de la estrategia (peso = 1): Es un criterio menos importante y podría usarse una Función tipo I, considerando solo si una estrategia dura más o menos tiempo.
+
+*Capacidad de segmentación (peso = 2.5): Aquí también se busca maximizar, y la Función tipo III sería útil, ya que permite un incremento gradual en la preferencia conforme la capacidad de segmentación mejora, capturando pequeñas diferencias en la personalización de la estrategia.
+
+*Flexibilidad de ajustes (peso = 2): La Función tipo V podría ser la opción ideal, ya que permite indiferencia en los niveles bajos de flexibilidad pero da preferencia a mayores niveles, reflejando la utilidad de adaptarse rápidamente a cambios en el mercado.
+
+```{r}
+# La tabla de preferencias la rellenamos de la siguiente manera:
+# num.funcion, qi, pi, si
+tablaf_pref <- matrix(c(3,1,3,90,
+                        4,0,2,40,
+                        3,1,3.5,220,
+                        1,1,1,20,
+                        3,1,2.5,100,
+                        5,1,2,10), ncol = 4, byrow = T)
+colnames(tablaf_pref) <- c("num.pref","qi","pi","si")
+tablaf_pref
+
+# Aplicamos método
+tab.Pthee.i <- multicriterio.metodo.promethee_i(datos, pesos.criterios = tablaf_pref[,3]/sum(tablaf_pref[,3]),
+tab.fpref = tablaf_pref)
+tab.Pthee.i
+
+# Grafo:
+qgraph::qgraph(tab.Pthee.i$tablarelacionsupera)
+
+```
+PONER CONCLUSION
+
+
+#### Método promethee I (medias)
+```{r}
+# Aplicamos método
+tab.Pthee.i_med <- multicriterio.metodo.promethee_i_med(datos, pesos.criterios = tablaf_pref[,3]/sum(tablaf_pref[,3]),
+tab.fpref = tablaf_pref)
+tab.Pthee.i_med
+
+# Grafo:
+qgraph::qgraph(tab.Pthee.i_med$tablarelacionsupera)
+
+```
+PONER CONCLUSION
+
+
+
+### 1.2. MÉTODO PROMETHEE II
+```{r}
+# Aplicamos método
+tab.Pthee.ii <- multicriterio.metodo.promethee_ii(datos, pesos.criterios = tablaf_pref[,3]/sum(tablaf_pref[,3]),
+tab.fpref = tablaf_pref)
+tab.Pthee.ii
+
+# Grafo:
+qgraph::qgraph(tab.Pthee.ii$tablarelacionsupera)
+
+# ORDENACIÓN FINAL ALTERNATIVAS DEL MÉTODO PROMETHEE II:
+# La ordenación que establecen seria la siguiente:
+order(tab.Pthee.ii$vflujos.netos,decreasing = T)
+
+```
+PONER CONCLUSION
+
+
+#### Método promethee II (medias)
+```{r}
+# Aplicamos método
+tab.Pthee.ii_med <- multicriterio.metodo.promethee_ii_med(datos, pesos.criterios = tablaf_pref[,3]/sum(tablaf_pref[,3]),
+tab.fpref = tablaf_pref)
+tab.Pthee.ii_med
+
+# Grafo:
+qgraph::qgraph(tab.Pthee.ii_med$tablarelacionsupera)
+
+# ORDENACIÓN FINAL ALTERNATIVAS DEL MÉTODO PROMETHEE II (MEDIAS):
+# La ordenación que establecen seria la siguiente:
+order(tab.Pthee.ii_med$vflujos.netos,decreasing = T)
+
+```
+PONER CONCLUSION
+
+
+
+***
+***
+
+
+## 2. MÉTODO ELECTREE
+
+
+
+
+
+
+***
+***
+
+
+
+
+## 3. MÉTODO AHP
+### 3.1. Con funciones de R
+
+### 3.2 Librería AHP
+
+
+
+
+
+
+
+
+
+##### **MATRIZ DE COMPARACIÓN ENTRE CRITERIOS:**
+$$
+\begin{array}{c|ccc}
+\text{CRITERIOS} & \text{Costo} & \text{Alcance} & \text{ROI} \\
+\hline
+\text{Costo} & 1 & \frac{1}{3} & \frac{1}{2} \\
+\text{Alcance} & 3 & 1 & 2 \\
+\text{ROI} & 2 & \frac{1}{2} & 1 \\
+\end{array}
+$$
+
+
+
+##### **MATRIZ DE COMPARACIÓN ENTRE ALTERNATIVAS SEGÚN CRITERIOS:**
+###### PARA EL CRITERIO COSTO:
+$$
+\begin{array}{c|ccc}
+\text{COSTO} & \text{Marketing de Contenidos} & \text{Publicidad en Redes Sociales} & \text{SEO} \\
+\hline
+\text{Marketing de Contenidos} & 1 & 3 & 2 \\
+\text{Publicidad en Redes Sociales} & \frac{1}{3} & 1 & \frac{1}{2} \\
+\text{SEO} & \frac{1}{2} & 2 & 1 \\
+\end{array}
+$$
+<br>
+
+###### PARA EL CRITERIO ALCANCE:
+$$
+\begin{array}{c|ccc}
+\text{ALCANCE} & \text{Marketing de Contenidos} & \text{Publicidad en Redes Sociales} & \text{SEO} \\
+\hline
+\text{Marketing de Contenidos} & 1 & \frac{1}{2} & \frac{1}{3} \\
+\text{Publicidad en Redes Sociales} & 2 & 1 & \frac{1}{2} \\
+\text{SEO} & 3 & 2 & 1 \\
+\end{array}
+$$
+<br>
+
+###### PARA EL CRITERIO ROI:
+$$
+\begin{array}{c|ccc}
+\text{ROI} & \text{Marketing de Contenidos} & \text{Publicidad en Redes Sociales} & \text{SEO} \\
+\hline
+\text{Marketing de Contenidos} & 1 & \frac{1}{4} & \frac{1}{3} \\
+\text{Publicidad en Redes Sociales} & 4 & 1 & \frac{1}{2} \\
+\text{SEO} & 3 & 2 & 1 \\
+\end{array}
+$$
+
+
+
+
+
+
