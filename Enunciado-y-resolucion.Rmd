@@ -104,6 +104,9 @@ Utilizando técnicas de análisis multicriterio como **AHP**, **ELECTRE**, y **P
 ***
 ***
 
+
+## 1. MÉTODO PROMETHEE
+
 Analizando el enunciado, obtendríamos la siguiente tabla: 
 ```{r warning=FALSE}
 library(knitr)
@@ -157,12 +160,6 @@ datos
 ```
 
 
-***
-***
-
-
-## 1. MÉTODO PROMETHEE
-### 1.1. MÉTODO PROMETHEE I
 Antes de definir la tabla de preferencias veamos el número de función que le corresponde a cada cada criterio según su nivel de importancia:
 
 *Alcance del público objetivo (peso = 3): Este criterio se maximiza y busca gran visibilidad, por lo que una Función tipo III podría ser adecuada, ya que permite que la preferencia crezca linealmente conforme aumente el alcance. 
@@ -189,6 +186,10 @@ tablaf_pref <- matrix(c(3,1,3,90,
 colnames(tablaf_pref) <- c("num.pref","qi","pi","si")
 tablaf_pref
 
+```
+
+### 1.1. MÉTODO PROMETHEE I
+```{r}
 # Aplicamos método
 tab.Pthee.i <- multicriterio.metodo.promethee_i(datos, pesos.criterios = tablaf_pref[,3]/sum(tablaf_pref[,3]),
 tab.fpref = tablaf_pref)
@@ -257,11 +258,49 @@ PONER CONCLUSION
 ***
 
 
-## 2. MÉTODO ELECTREE
+## 2. MÉTODO ELECTRE
+Aplicamos el método:
+```{r}
+# Retomamos la matriz de decisión y los pesos de los criterios:
+datos
+p <- c(3, 2, 3.5, 1, 2.5, 2)
+
+# Umbrales de discordancia (d):
+# Para el Costo, usamos un valor más bajo para no permitir grandes diferencias en este criterio.
+d <- c(60, Inf, Inf, Inf, Inf, Inf)  # Para el Costo: 60 
 
 
+electre <- multicriterio.metodoELECTRE_I(datos,
+                                      pesos.criterios = p,
+                                      nivel.concordancia.minimo.alpha = 0.7,
+                                      no.se.compensan = d,
+                                      que.alternativas = T)
+electre
 
+# GRAFO: 
+qgraph::qgraph(electre$relacion.dominante)
 
+```
+<br>
+Obtenemos las alternativas A1 y A3.
+
+Vamos a reducir el valor de α para intentar sacar mejores conclusiones:
+```{r}
+electre_red <- multicriterio.metodoELECTRE_I(datos,
+                                      pesos.criterios = p,
+                                      nivel.concordancia.minimo.alpha = 0.6,
+                                      no.se.compensan = d,
+                                      que.alternativas = c(1,3)) # Ponemos las alternativas obtenidas anteriormente
+electre_red
+
+# GRAFO: 
+qgraph::qgraph(electre_red$relacion.dominante)
+
+```
+<br>
+Nos queda la alternativa A1
+
+<u>**CONCLUSIÓN:**</u> Con el método Electree, obtenemos que la mejor alternativa es A1, es decir, publicidad es las Redes Sociales.
 
 
 ***

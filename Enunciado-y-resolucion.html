@@ -369,8 +369,8 @@ MÉTODO PROMETHEE I</a></li>
 <li><a href="#método-promethee-ii" id="toc-método-promethee-ii">1.2.
 MÉTODO PROMETHEE II</a></li>
 </ul></li>
-<li><a href="#método-electree" id="toc-método-electree">2. MÉTODO
-ELECTREE</a></li>
+<li><a href="#método-electre" id="toc-método-electre">2. MÉTODO
+ELECTRE</a></li>
 <li><a href="#método-ahp" id="toc-método-ahp">3. MÉTODO AHP</a>
 <ul>
 <li><a href="#con-funciones-de-r" id="toc-con-funciones-de-r">3.1. Con
@@ -500,6 +500,9 @@ marketing digital es la mejor opción para <em>Tech Solutions</em> en
 base a los criterios y pesos mencionados.</p>
 <hr />
 <hr />
+</div>
+<div id="método-promethee" class="section level2">
+<h2>1. MÉTODO PROMETHEE</h2>
 <p>Analizando el enunciado, obtendríamos la siguiente tabla:</p>
 <pre class="r"><code>library(knitr)
 
@@ -638,7 +641,6 @@ Digital</caption>
 </tbody>
 </table>
 <p><br></p>
-</div>
 <div id="matriz-de-decisión" class="section level4">
 <h4>Matriz de decisión</h4>
 <pre class="r"><code>datos = multicriterio.crea.matrizdecision(c(85, -30, 150, 12, 90, 9,
@@ -662,13 +664,6 @@ datos</code></pre>
 ## A3                         6                        85                       8
 ## A4                         9                        88                       9
 ## A5                         6                        75                       6</code></pre>
-<hr />
-<hr />
-</div>
-<div id="método-promethee" class="section level2">
-<h2>1. MÉTODO PROMETHEE</h2>
-<div id="método-promethee-i" class="section level3">
-<h3>1.1. MÉTODO PROMETHEE I</h3>
 <p>Antes de definir la tabla de preferencias veamos el número de función
 que le corresponde a cada cada criterio según su nivel de
 importancia:</p>
@@ -712,6 +707,9 @@ tablaf_pref</code></pre>
 ## [4,]        1  1 1.0  20
 ## [5,]        3  1 2.5 100
 ## [6,]        5  1 2.0  10</code></pre>
+</div>
+<div id="método-promethee-i" class="section level3">
+<h3>1.1. MÉTODO PROMETHEE I</h3>
 <pre class="r"><code># Aplicamos método
 tab.Pthee.i &lt;- multicriterio.metodo.promethee_i(datos, pesos.criterios = tablaf_pref[,3]/sum(tablaf_pref[,3]),
 tab.fpref = tablaf_pref)
@@ -849,8 +847,457 @@ order(tab.Pthee.ii_med$vflujos.netos,decreasing = T)</code></pre>
 </div>
 </div>
 </div>
-<div id="método-electree" class="section level2">
-<h2>2. MÉTODO ELECTREE</h2>
+<div id="método-electre" class="section level2">
+<h2>2. MÉTODO ELECTRE</h2>
+<p>Aplicamos el método:</p>
+<pre class="r"><code># Retomamos la matriz de decisión y los pesos de los criterios:
+datos</code></pre>
+<pre><code>##    Alcance del público objetivo Costo Retorno de inversión (ROI)
+## A1                           85   -30                        150
+## A2                           70   -20                        120
+## A3                           60   -10                        200
+## A4                           75   -25                        140
+## A5                           90   -35                        130
+##    Duración de la estrategia Capacidad de segmentación Flexibilidad de ajustes
+## A1                        12                        90                       9
+## A2                        18                        80                       6
+## A3                         6                        85                       8
+## A4                         9                        88                       9
+## A5                         6                        75                       6</code></pre>
+<pre class="r"><code>p &lt;- c(3, 2, 3.5, 1, 2.5, 2)
+
+# Umbrales de discordancia (d):
+# Para el Costo, usamos un valor más bajo para no permitir grandes diferencias en este criterio.
+d &lt;- c(60, Inf, Inf, Inf, Inf, Inf)  # Para el Costo: 60 
+
+
+electre &lt;- multicriterio.metodoELECTRE_I(datos,
+                                      pesos.criterios = p,
+                                      nivel.concordancia.minimo.alpha = 0.7,
+                                      no.se.compensan = d,
+                                      que.alternativas = T)
+electre</code></pre>
+<pre><code>## $datos
+##                 Alcance del público objetivo Costo Retorno de inversión (ROI)
+## A1                                        85   -30                      150.0
+## A2                                        70   -20                      120.0
+## A3                                        60   -10                      200.0
+## A4                                        75   -25                      140.0
+## A5                                        90   -35                      130.0
+## pesos.criterios                            3     2                        3.5
+## no.se.compensan                           60   Inf                        Inf
+##                 Duración de la estrategia Capacidad de segmentación
+## A1                                     12                      90.0
+## A2                                     18                      80.0
+## A3                                      6                      85.0
+## A4                                      9                      88.0
+## A5                                      6                      75.0
+## pesos.criterios                         1                       2.5
+## no.se.compensan                       Inf                       Inf
+##                 Flexibilidad de ajustes
+## A1                                    9
+## A2                                    6
+## A3                                    8
+## A4                                    9
+## A5                                    6
+## pesos.criterios                       2
+## no.se.compensan                     Inf
+## 
+## $alpha
+## [1] 0.7
+## 
+## $Imas
+## , , Alcance del público objetivo
+## 
+##       A1    A2    A3    A4    A5
+## A1 FALSE  TRUE  TRUE  TRUE FALSE
+## A2 FALSE FALSE  TRUE FALSE FALSE
+## A3 FALSE FALSE FALSE FALSE FALSE
+## A4 FALSE  TRUE  TRUE FALSE FALSE
+## A5  TRUE  TRUE  TRUE  TRUE FALSE
+## 
+## , , Costo
+## 
+##       A1    A2    A3    A4    A5
+## A1 FALSE FALSE FALSE FALSE  TRUE
+## A2  TRUE FALSE FALSE  TRUE  TRUE
+## A3  TRUE  TRUE FALSE  TRUE  TRUE
+## A4  TRUE FALSE FALSE FALSE  TRUE
+## A5 FALSE FALSE FALSE FALSE FALSE
+## 
+## , , Retorno de inversión (ROI)
+## 
+##       A1    A2    A3    A4    A5
+## A1 FALSE  TRUE FALSE  TRUE  TRUE
+## A2 FALSE FALSE FALSE FALSE FALSE
+## A3  TRUE  TRUE FALSE  TRUE  TRUE
+## A4 FALSE  TRUE FALSE FALSE  TRUE
+## A5 FALSE  TRUE FALSE FALSE FALSE
+## 
+## , , Duración de la estrategia
+## 
+##       A1    A2    A3    A4    A5
+## A1 FALSE FALSE  TRUE  TRUE  TRUE
+## A2  TRUE FALSE  TRUE  TRUE  TRUE
+## A3 FALSE FALSE FALSE FALSE FALSE
+## A4 FALSE FALSE  TRUE FALSE  TRUE
+## A5 FALSE FALSE FALSE FALSE FALSE
+## 
+## , , Capacidad de segmentación
+## 
+##       A1    A2    A3    A4    A5
+## A1 FALSE  TRUE  TRUE  TRUE  TRUE
+## A2 FALSE FALSE FALSE FALSE  TRUE
+## A3 FALSE  TRUE FALSE FALSE  TRUE
+## A4 FALSE  TRUE  TRUE FALSE  TRUE
+## A5 FALSE FALSE FALSE FALSE FALSE
+## 
+## , , Flexibilidad de ajustes
+## 
+##       A1    A2    A3    A4    A5
+## A1 FALSE  TRUE  TRUE FALSE  TRUE
+## A2 FALSE FALSE FALSE FALSE FALSE
+## A3 FALSE  TRUE FALSE FALSE  TRUE
+## A4 FALSE  TRUE  TRUE FALSE  TRUE
+## A5 FALSE FALSE FALSE FALSE FALSE
+## 
+## 
+## $Iigual
+## , , Alcance del público objetivo
+## 
+##       A1    A2    A3    A4    A5
+## A1  TRUE FALSE FALSE FALSE FALSE
+## A2 FALSE  TRUE FALSE FALSE FALSE
+## A3 FALSE FALSE  TRUE FALSE FALSE
+## A4 FALSE FALSE FALSE  TRUE FALSE
+## A5 FALSE FALSE FALSE FALSE  TRUE
+## 
+## , , Costo
+## 
+##       A1    A2    A3    A4    A5
+## A1  TRUE FALSE FALSE FALSE FALSE
+## A2 FALSE  TRUE FALSE FALSE FALSE
+## A3 FALSE FALSE  TRUE FALSE FALSE
+## A4 FALSE FALSE FALSE  TRUE FALSE
+## A5 FALSE FALSE FALSE FALSE  TRUE
+## 
+## , , Retorno de inversión (ROI)
+## 
+##       A1    A2    A3    A4    A5
+## A1  TRUE FALSE FALSE FALSE FALSE
+## A2 FALSE  TRUE FALSE FALSE FALSE
+## A3 FALSE FALSE  TRUE FALSE FALSE
+## A4 FALSE FALSE FALSE  TRUE FALSE
+## A5 FALSE FALSE FALSE FALSE  TRUE
+## 
+## , , Duración de la estrategia
+## 
+##       A1    A2    A3    A4    A5
+## A1  TRUE FALSE FALSE FALSE FALSE
+## A2 FALSE  TRUE FALSE FALSE FALSE
+## A3 FALSE FALSE  TRUE FALSE  TRUE
+## A4 FALSE FALSE FALSE  TRUE FALSE
+## A5 FALSE FALSE  TRUE FALSE  TRUE
+## 
+## , , Capacidad de segmentación
+## 
+##       A1    A2    A3    A4    A5
+## A1  TRUE FALSE FALSE FALSE FALSE
+## A2 FALSE  TRUE FALSE FALSE FALSE
+## A3 FALSE FALSE  TRUE FALSE FALSE
+## A4 FALSE FALSE FALSE  TRUE FALSE
+## A5 FALSE FALSE FALSE FALSE  TRUE
+## 
+## , , Flexibilidad de ajustes
+## 
+##       A1    A2    A3    A4    A5
+## A1  TRUE FALSE FALSE  TRUE FALSE
+## A2 FALSE  TRUE FALSE FALSE  TRUE
+## A3 FALSE FALSE  TRUE FALSE FALSE
+## A4  TRUE FALSE FALSE  TRUE FALSE
+## A5 FALSE  TRUE FALSE FALSE  TRUE
+## 
+## 
+## $Imenos
+## , , Alcance del público objetivo
+## 
+##       A1    A2    A3    A4    A5
+## A1 FALSE FALSE FALSE FALSE  TRUE
+## A2  TRUE FALSE FALSE  TRUE  TRUE
+## A3  TRUE  TRUE FALSE  TRUE  TRUE
+## A4  TRUE FALSE FALSE FALSE  TRUE
+## A5 FALSE FALSE FALSE FALSE FALSE
+## 
+## , , Costo
+## 
+##       A1    A2    A3    A4    A5
+## A1 FALSE  TRUE  TRUE  TRUE FALSE
+## A2 FALSE FALSE  TRUE FALSE FALSE
+## A3 FALSE FALSE FALSE FALSE FALSE
+## A4 FALSE  TRUE  TRUE FALSE FALSE
+## A5  TRUE  TRUE  TRUE  TRUE FALSE
+## 
+## , , Retorno de inversión (ROI)
+## 
+##       A1    A2    A3    A4    A5
+## A1 FALSE FALSE  TRUE FALSE FALSE
+## A2  TRUE FALSE  TRUE  TRUE  TRUE
+## A3 FALSE FALSE FALSE FALSE FALSE
+## A4  TRUE FALSE  TRUE FALSE FALSE
+## A5  TRUE FALSE  TRUE  TRUE FALSE
+## 
+## , , Duración de la estrategia
+## 
+##       A1    A2    A3    A4    A5
+## A1 FALSE  TRUE FALSE FALSE FALSE
+## A2 FALSE FALSE FALSE FALSE FALSE
+## A3  TRUE  TRUE FALSE  TRUE FALSE
+## A4  TRUE  TRUE FALSE FALSE FALSE
+## A5  TRUE  TRUE FALSE  TRUE FALSE
+## 
+## , , Capacidad de segmentación
+## 
+##       A1    A2    A3    A4    A5
+## A1 FALSE FALSE FALSE FALSE FALSE
+## A2  TRUE FALSE  TRUE  TRUE FALSE
+## A3  TRUE FALSE FALSE  TRUE FALSE
+## A4  TRUE FALSE FALSE FALSE FALSE
+## A5  TRUE  TRUE  TRUE  TRUE FALSE
+## 
+## , , Flexibilidad de ajustes
+## 
+##       A1    A2    A3    A4    A5
+## A1 FALSE FALSE FALSE FALSE FALSE
+## A2  TRUE FALSE  TRUE  TRUE FALSE
+## A3  TRUE FALSE FALSE  TRUE FALSE
+## A4 FALSE FALSE FALSE FALSE FALSE
+## A5  TRUE FALSE  TRUE  TRUE FALSE
+## 
+## 
+## $ind.concordancia
+##           A1        A2        A3        A4        A5
+## A1 1.0000000 0.7857143 0.6071429 0.8571429 0.7857143
+## A2 0.2142857 1.0000000 0.2857143 0.2142857 0.5357143
+## A3 0.3928571 0.7142857 1.0000000 0.3928571 0.7857143
+## A4 0.2857143 0.7857143 0.6071429 1.0000000 0.7857143
+## A5 0.2142857 0.6071429 0.2857143 0.2142857 1.0000000
+## 
+## $ind.concordancia.gorro
+##           A1       A2       A3        A4        A5
+## A1       NaN 3.666667 1.545455 5.0000000 3.6666667
+## A2 0.2727273      NaN 0.400000 0.2727273 0.8461538
+## A3 0.6470588 2.500000      NaN 0.6470588 3.3333333
+## A4 0.2000000 3.666667 1.545455       NaN 3.6666667
+## A5 0.2727273 1.181818 0.300000 0.2727273       NaN
+## 
+## $test.concordancia
+##       A1    A2    A3    A4    A5
+## A1 FALSE  TRUE FALSE  TRUE  TRUE
+## A2 FALSE FALSE FALSE FALSE FALSE
+## A3 FALSE  TRUE FALSE FALSE  TRUE
+## A4 FALSE  TRUE FALSE FALSE  TRUE
+## A5 FALSE FALSE FALSE FALSE FALSE
+## 
+## $test.discordancia
+##      A1   A2   A3   A4   A5
+## A1 TRUE TRUE TRUE TRUE TRUE
+## A2 TRUE TRUE TRUE TRUE TRUE
+## A3 TRUE TRUE TRUE TRUE TRUE
+## A4 TRUE TRUE TRUE TRUE TRUE
+## A5 TRUE TRUE TRUE TRUE TRUE
+## 
+## $relacion.dominante
+##       A1    A2    A3    A4    A5
+## A1 FALSE  TRUE FALSE  TRUE  TRUE
+## A2 FALSE FALSE FALSE FALSE FALSE
+## A3 FALSE  TRUE FALSE FALSE  TRUE
+## A4 FALSE  TRUE FALSE FALSE  TRUE
+## A5 FALSE FALSE FALSE FALSE FALSE
+## 
+## $nucleo_aprox
+## A1 A3 
+##  1  3</code></pre>
+<pre class="r"><code># GRAFO: 
+qgraph::qgraph(electre$relacion.dominante)</code></pre>
+<p><img role="img" src="data:image/png;base64,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9f/9X/zbS3x/+n7J3XuBZaEqUZHH0QUp0Gu3nHZHN518HT3ZKFAyCFKgV2457X/x79+/P136l9UPAx8qZEUch1dti5NuOb3e8vzPf/3V/q1E/sWbL5KTAmW9GAXa1YMwBgXKegqUWRVPiziOr94e+w+fWBQoqylQplU6L/I4PgXKtArnRRwnUHGTPWMimLKJkccJKFDmVTQx4jgDBcrESkZGHGdQc5fdciKYgpkRxykoUGZWLDTSOIeq++yWE8EoUFZRoEytUGykcRJ1N9otJ6IpExxxnETljfaMiWCKJEccZ6FAmVyJ6IjjLGrvtFtORJM9PBtxnEb1rfaMiWgyx0caJ6JAIWt+hHEm9Xe7wCOKLKsoUBI12O38t5xyf0JmkzFC0jiVFtvtlhPRZHvdRxrn0mS/PWMinDw5ksbJKFB4lSFIvn5pOm123C0n4lkdJVmcT6M9z/awMks2Ky8gZXFCrTY90+PKLDmtyZMszqjZrue4XeSWE5klR0oW59Rw291yIqC0VMnipFpu/Lr/tP2XTxEJwZLFabXd+RWPLrKU8mAfqs+JNd779FtOWYcBRzaLg7n8bzKi5rvvlhMhLWlG7Tm99gFIGIHYUsPNftxoTyIU6MN1KLdUc6UllSdvQuTggThKLpVtLmg9JqKIEoUlqZRcIJRIjXTvllO9kQAsEKyV3HIC+hGvmNxyAjqhmwASKVCARAoUIJECBUikQAESKVCARAoUIJECBUikQAESKVCARAoUIJECBUikQAESKVCARAoUIJECBUikQAESKVCARAoUIJECBUikQAESKVCARAoUIJECBUikQAESKVCARAoUIJECBUikQAESKVCARAoUIJECBUikQAESKVCARAoUIJECBUikQAESKVCARAoUIJECBUikQAESKVCARAoUIJECBUikQAESKVCARAoUIJECBUikQAESKVCARAoUIJECBUikQAESKVCARAoUIJECBUikQAESKVCARP8ffKNWXKocn90AAAAASUVORK5CYII=" width="672" />
+<br> Obtenemos las alternativas A1 y A3.</p>
+<p>Vamos a reducir el valor de α para intentar sacar mejores
+conclusiones:</p>
+<pre class="r"><code>electre_red &lt;- multicriterio.metodoELECTRE_I(datos,
+                                      pesos.criterios = p,
+                                      nivel.concordancia.minimo.alpha = 0.6,
+                                      no.se.compensan = d,
+                                      que.alternativas = c(1,3)) # Ponemos las alternativas obtenidas anteriormente
+electre_red</code></pre>
+<pre><code>## $datos
+##                 Alcance del público objetivo Costo Retorno de inversión (ROI)
+## A1                                        85   -30                      150.0
+## A3                                        60   -10                      200.0
+## pesos.criterios                            3     2                        3.5
+## no.se.compensan                           60   Inf                        Inf
+##                 Duración de la estrategia Capacidad de segmentación
+## A1                                     12                      90.0
+## A3                                      6                      85.0
+## pesos.criterios                         1                       2.5
+## no.se.compensan                       Inf                       Inf
+##                 Flexibilidad de ajustes
+## A1                                    9
+## A3                                    8
+## pesos.criterios                       2
+## no.se.compensan                     Inf
+## 
+## $alpha
+## [1] 0.6
+## 
+## $Imas
+## , , Alcance del público objetivo
+## 
+##       A1    A3
+## A1 FALSE  TRUE
+## A3 FALSE FALSE
+## 
+## , , Costo
+## 
+##       A1    A3
+## A1 FALSE FALSE
+## A3  TRUE FALSE
+## 
+## , , Retorno de inversión (ROI)
+## 
+##       A1    A3
+## A1 FALSE FALSE
+## A3  TRUE FALSE
+## 
+## , , Duración de la estrategia
+## 
+##       A1    A3
+## A1 FALSE  TRUE
+## A3 FALSE FALSE
+## 
+## , , Capacidad de segmentación
+## 
+##       A1    A3
+## A1 FALSE  TRUE
+## A3 FALSE FALSE
+## 
+## , , Flexibilidad de ajustes
+## 
+##       A1    A3
+## A1 FALSE  TRUE
+## A3 FALSE FALSE
+## 
+## 
+## $Iigual
+## , , Alcance del público objetivo
+## 
+##       A1    A3
+## A1  TRUE FALSE
+## A3 FALSE  TRUE
+## 
+## , , Costo
+## 
+##       A1    A3
+## A1  TRUE FALSE
+## A3 FALSE  TRUE
+## 
+## , , Retorno de inversión (ROI)
+## 
+##       A1    A3
+## A1  TRUE FALSE
+## A3 FALSE  TRUE
+## 
+## , , Duración de la estrategia
+## 
+##       A1    A3
+## A1  TRUE FALSE
+## A3 FALSE  TRUE
+## 
+## , , Capacidad de segmentación
+## 
+##       A1    A3
+## A1  TRUE FALSE
+## A3 FALSE  TRUE
+## 
+## , , Flexibilidad de ajustes
+## 
+##       A1    A3
+## A1  TRUE FALSE
+## A3 FALSE  TRUE
+## 
+## 
+## $Imenos
+## , , Alcance del público objetivo
+## 
+##       A1    A3
+## A1 FALSE FALSE
+## A3  TRUE FALSE
+## 
+## , , Costo
+## 
+##       A1    A3
+## A1 FALSE  TRUE
+## A3 FALSE FALSE
+## 
+## , , Retorno de inversión (ROI)
+## 
+##       A1    A3
+## A1 FALSE  TRUE
+## A3 FALSE FALSE
+## 
+## , , Duración de la estrategia
+## 
+##       A1    A3
+## A1 FALSE FALSE
+## A3  TRUE FALSE
+## 
+## , , Capacidad de segmentación
+## 
+##       A1    A3
+## A1 FALSE FALSE
+## A3  TRUE FALSE
+## 
+## , , Flexibilidad de ajustes
+## 
+##       A1    A3
+## A1 FALSE FALSE
+## A3  TRUE FALSE
+## 
+## 
+## $ind.concordancia
+##           A1        A3
+## A1 1.0000000 0.6071429
+## A3 0.3928571 1.0000000
+## 
+## $ind.concordancia.gorro
+##           A1       A3
+## A1       NaN 1.545455
+## A3 0.6470588      NaN
+## 
+## $test.concordancia
+##       A1    A3
+## A1 FALSE  TRUE
+## A3 FALSE FALSE
+## 
+## $test.discordancia
+##      A1   A3
+## A1 TRUE TRUE
+## A3 TRUE TRUE
+## 
+## $relacion.dominante
+##       A1    A3
+## A1 FALSE  TRUE
+## A3 FALSE FALSE
+## 
+## $nucleo_aprox
+## A1 
+##  1</code></pre>
+<pre class="r"><code># GRAFO: 
+qgraph::qgraph(electre_red$relacion.dominante)</code></pre>
+<p><img role="img" src="data:image/png;base64,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AkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCSJqCUCShpAkqZgJImoJQJKGkCSpmAkiaglAkoaQJKmYCS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" width="672" />
+<br> Nos queda la alternativa A1</p>
+<p><u><strong>CONCLUSIÓN:</strong></u> Con el método Electree, obtenemos
+que la mejor alternativa es A1, es decir, publicidad es las Redes
+Sociales.</p>
 <hr />
 <hr />
 </div>
