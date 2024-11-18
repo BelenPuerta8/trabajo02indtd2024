@@ -199,7 +199,9 @@ tab.Pthee.i
 qgraph::qgraph(tab.Pthee.i$tablarelacionsupera)
 
 ```
-PONER CONCLUSION
+<br>
+<u>**CONCLUSIÓN**</u>:Para el método Promethee I, la alternativa A1 (Publicidad en Redes Sociales) supera al resto de alternativas directamente. A2 no supera a ninguna otra alternativa, A3 supera a A2, a A4 y a A5, A4 supera a A2 y a A5, y A5 supera a A2. 
+<br>
 
 
 #### Método promethee I (medias)
@@ -213,7 +215,12 @@ tab.Pthee.i_med
 qgraph::qgraph(tab.Pthee.i_med$tablarelacionsupera)
 
 ```
-PONER CONCLUSION
+<br>
+<u>**CONCLUSIÓN**</u>:Para el método Promethee I (medias), la alternativa A1 (Publicidad en Redes Sociales) supera al resto de alternativas directamente. A2 no supera a ninguna otra alternativa, A3 supera a A2, a A4 y a A5, A4 supera a A2 y a A5 ,y A5 supera a A2. 
+
+Los resultados obtenidos en el método Promethee I y Promethee I (medias) coinciden.
+
+<br>
 
 
 
@@ -232,7 +239,9 @@ qgraph::qgraph(tab.Pthee.ii$tablarelacionsupera)
 order(tab.Pthee.ii$vflujos.netos,decreasing = T)
 
 ```
-PONER CONCLUSION
+<u>**CONCLUSIÓN**</u>:Para el método Promethee II, la mejor alternativa es A1 (Publicidad en Redes Sociales) ya que tiene el mayor flujo neto con un valor de 1.7500. Además, supera al resto de alternativas directamente. A2 no supera a ninguna otra alternativa, A3 supera a A2, a A4 y a A5, A4 supera a A2 y a A5 ,y A5 supera a A2. 
+<br>
+
 
 
 #### Método promethee II (medias)
@@ -250,7 +259,12 @@ qgraph::qgraph(tab.Pthee.ii_med$tablarelacionsupera)
 order(tab.Pthee.ii_med$vflujos.netos,decreasing = T)
 
 ```
-PONER CONCLUSION
+<br>
+<u>**CONCLUSIÓN**</u>:Para el método Promethee II (medias), la mejor alternativa es A1 (Publicidad en Redes Sociales) ya que tiene el mayor flujo neto con un valor de 0.4375. Además, supera al resto de alternativas directamente. A2 no supera a ninguna otra alternativa, A3 supera a A2, a A4 y a A5, A4 supera a A2 y a A5 ,y A5 supera a A2. 
+
+Los resultados obtenidos en el método Promethee II y Promethee II (medias) coinciden.
+
+<br>
 
 
 
@@ -267,7 +281,7 @@ p <- c(3, 2, 3.5, 1, 2.5, 2)
 
 # Umbrales de discordancia (d):
 # Para el Costo, usamos un valor más bajo para no permitir grandes diferencias en este criterio.
-d <- c(60, Inf, Inf, Inf, Inf, Inf)  # Para el Costo: 60 
+d <- c(Inf, 60, Inf, Inf, Inf, Inf)  # Para el Costo: 60 
 
 
 electre <- multicriterio.metodoELECTRE_I(datos,
@@ -300,76 +314,230 @@ qgraph::qgraph(electre_red$relacion.dominante)
 <br>
 Nos queda la alternativa A1
 
-<u>**CONCLUSIÓN:**</u> Con el método Electree, obtenemos que la mejor alternativa es A1, es decir, publicidad es las Redes Sociales.
+<u>**CONCLUSIÓN**</u>: Con el método Electree, obtenemos que la mejor alternativa es A1, es decir, publicidad es las Redes Sociales.
 
 
 ***
 ***
-
 
 
 
 ## 3. MÉTODO AHP
+Vamos a crear la matriz de comparación entre criterios y las matrices de comparaciones alternativas/criterios:
+```{r}
+# MATRIZ DE CRITERIOS
+n_criterios <- c("Alcance", "Costo", "ROI", "Duración", "Segmentación", "Flexibilidad")
+Xmat_criterios <- multicriterio.crea.matrizvaloraciones(
+  c(1, 3/2, 2/3, 3, 5/4, 3/2,
+    2/3, 1, 2/3, 2, 4/5, 1,
+    3/2, 3/2, 1, 7/2, 7/5, 7/5,
+    1/3, 1/2, 2/7, 1, 4/5, 1/2,
+    4/5, 5/4, 5/7, 5/4, 1, 5/4,
+    2/3, 1, 7/5, 1/2, 5/4, 1),
+  6, n_criterios
+)
+kable(Xmat_criterios, caption = "MATRIZ DE CRITERIOS")
+
+
+
+# MATRICES DE ALTERNATIVAS/CRITERIOS
+n_alternativas <- c("A1", "A2", "A3", "A4", "A5")
+
+# Criterio: Alcance
+Xmat_alcance <- multicriterio.crea.matrizvaloraciones(
+  c(1, 17/14, 17/12, 17/15, 17/18,
+    14/17, 1, 14/12, 14/15, 14/18,
+    12/17, 12/14, 1, 12/15, 12/18,
+    15/17, 15/14, 15/12, 1, 15/18,
+    18/17, 18/14, 18/12, 18/15, 1),
+  5, n_alternativas
+)
+kable(Xmat_alcance, caption = "ALCANCE")
+
+# Criterio: Costo
+Xmat_costo <- multicriterio.crea.matrizvaloraciones(
+  c(1, 2/3, 1/3, 5/6, 6/7,
+    3/2, 1, 1/2, 5/8, 7/9,
+    3, 2, 1, 5/2, 7/4,
+    6/5, 8/5, 2/5, 1, 7/5,
+    7/6, 9/7, 4/7, 5/7, 1),
+  5, n_alternativas
+)
+kable(Xmat_costo, caption = "COSTO")
+
+# Criterio: ROI
+Xmat_roi <- multicriterio.crea.matrizvaloraciones(
+  c(1, 5/4, 3/2, 6/7, 10/13,
+    4/5, 1, 6/5, 5/7, 13/10,
+    2/3, 5/6, 1, 7/5, 7/10,
+    7/6, 7/5, 5/7, 1, 13/7,
+    13/10, 10/13, 10/7, 7/13, 1),
+  5, n_alternativas
+)
+kable(Xmat_roi, caption = "ROI")
+
+# Criterio: Duración
+Xmat_duracion <- multicriterio.crea.matrizvaloraciones(
+  c(1, 2/3, 5/7, 3/5, 1/2,
+    3/2, 1, 7/5, 5/3, 2/5,
+    7/5, 5/7, 1, 7/10, 5/9,
+    5/3, 3/5, 10/7, 1, 3/5,
+    2, 5/2, 9/5, 5/3, 1),
+  5, n_alternativas
+)
+kable(Xmat_duracion, caption = "DURACIÓN")
+
+# Criterio: Segmentación
+Xmat_segmentacion <- multicriterio.crea.matrizvaloraciones(
+  c(1, 9/8, 8/7, 9/10, 10/7,
+    8/9, 1, 7/6, 9/11, 11/8,
+    7/8, 6/7, 1, 8/9, 9/7,
+    10/9, 11/9, 9/8, 1, 7/6,
+    7/10, 8/11, 7/9, 6/7, 1),
+  5, n_alternativas
+)
+kable(Xmat_segmentacion, caption = "SEGMENTACIÓN")
+
+# Criterio: Flexibilidad
+Xmat_flexibilidad <- multicriterio.crea.matrizvaloraciones(
+  c(1, 4/3, 3/2, 5/4, 6/5,
+    3/4, 1, 2/3, 4/5, 5/6,
+    2/3, 3/2, 1, 3/4, 4/5,
+    4/5, 5/4, 4/3, 1, 3/2,
+    5/6, 6/5, 5/4, 2/3, 1),
+  5, n_alternativas
+)
+kable(Xmat_flexibilidad, caption = "FLEXIBILIDAD")
+
+```
+
+
 ### 3.1. Con funciones de R
+
+#### **Diagramas de jerarquías:**
+Vamos crear el diagrama de jerarquías para nuestra empresa. Este nos permitirá ver la importancia de cada alternativa, ofreciendo una forma sencilla de visualizar e interpretar los resultados.
+```{r}
+num.alt=5
+num.cri=6
+Xmatriznivel2 = array(NA,dim=c(num.alt,num.alt,num.cri))
+Xmatriznivel2[,,1] = Xmat_alcance
+Xmatriznivel2[,,2] = Xmat_costo
+Xmatriznivel2[,,3] = Xmat_roi
+Xmatriznivel2[,,4] = Xmat_duracion
+Xmatriznivel2[,,5] = Xmat_segmentacion
+Xmatriznivel2[,,6] = Xmat_flexibilidad
+dimnames(Xmatriznivel2)[[1]] = n_alternativas
+dimnames(Xmatriznivel2)[[2]] = n_alternativas
+dimnames(Xmatriznivel2)[[3]] = n_criterios
+
+multicriterio.metodoahp.diagrama(Xmat_criterios,Xmatriznivel2)
+```
+<br>La mejor alternativa es A4 (Publicidad en Buscadores) con el mayor valor y la peor A2 (Marketing de contenidos) con el menor.
+
+
+#### **Pesos locales:**
+##### Pesos locales de los criterios:
+```{r}
+pesos.criterios = multicriterio.metodoAHP.variante3.basico(Xmat_criterios)
+pesos.criterios
+```
+El criterio con mayor importancia es el ROI, con un peso de 0.2454, destacándose por encima de los demás criterios. En cambio, Duración es la menos relevante, con un peso de 0.0815, ya que tiene un impacto mínimo en la decisión final. Costo (0.1457), Alcance (0.2082), Flexibilidad (0.1609) y Segmentación (0.1583) tienen una importancia intermedia, con valores similares entre ellos, aunque el ROI y el Alcance sobresalen ligeramente.
+
+##### Pesos locales de las alternativas en función de cada criterio:
+###### Alcance:
+```{r}
+pesos.alcance= multicriterio.metodoAHP.variante3.basico(Xmat_alcance)
+pesos.alcance
+```
+Si solo consideramos el Alcance como criterio para la elección de la mejor alternativa, los resultados obtenidos para la elección de la mejor alternativa son: A5(0.2368) > A1(0.2237) > A4(0.1974) > A2(0.1842) > A3(0.1579).
+
+
+###### Costo:
+```{r}
+pesos.costo= multicriterio.metodoAHP.variante3.basico(Xmat_costo)
+pesos.costo
+```
+Si solo consideramos el Costo como criterio para la elección de la mejor alternativa, los resultados obtenidos para la elección de la mejor alternativa son: A3(0.3573) > A4(0.1915) > A5(0.1694) > A2(0.1532) > A1(0.1285).
+
+
+###### ROI:
+```{r}
+pesos.ROI= multicriterio.metodoAHP.variante3.basico(Xmat_roi)
+pesos.ROI
+```
+Si solo consideramos el ROI como criterio para la elección de la mejor alternativa, los resultados obtenidos para la elección de la mejor alternativa son: A4(0.2354) > A1(0.2048) > A5(0.1903) > A2(0.1894) > A3(0.1799).
+
+
+###### Duración:
+```{r}
+pesos.duracion= multicriterio.metodoAHP.variante3.basico(Xmat_duracion)
+pesos.duracion
+```
+Si solo consideramos la Duración como criterio para la elección de la mejor alternativa, los resultados obtenidos para la elección de la mejor alternativa son: A5(0.3254) > A2(0.2056) > A4(0.1857) > A3(0.1558) > A1(0.1273).
+
+
+###### Segmentación:
+```{r}
+pesos.segmentacion= multicriterio.metodoAHP.variante3.basico(Xmat_segmentacion)
+pesos.segmentacion
+```
+Si solo consideramos la Segmentación como criterio para la elección de la mejor alternativa, los resultados obtenidos para la elección de la mejor alternativa son: A4(0.2234) > A1(0.2191) > A2(0.2047) > A3(0.1923) > A5(0.1603).
+
+
+###### Flexibilidad:
+```{r}
+pesos.flexibilidad= multicriterio.metodoAHP.variante3.basico(Xmat_flexibilidad)
+pesos.flexibilidad
+```
+Si solo consideramos la Flexibilidad como criterio para la elección de la mejor alternativa, los resultados obtenidos para la elección de la mejor alternativa son: A1(0.2449) > A4(0.2266) > A5(0.1901) > A3(0.1790) > A2(0.1591).
+
+
+
+#### **Consistencia:**
+##### Consistencia de los criterios:
+```{r}
+
+```
+
+##### Consistencia de las alternativas:
+###### Alcance:
+```{r}
+
+```
+
+###### Costo:
+```{r}
+
+```
+
+###### ROI:
+```{r}
+
+```
+
+###### Duración:
+```{r}
+
+```
+
+###### Segmentación:
+```{r}
+
+```
+
+###### Flexibilidad:
+```{r}
+
+```
+
+
+
+
+
+
 
 ### 3.2 Librería AHP
 
-
-
-
-
-
-
-
-
-##### **MATRIZ DE COMPARACIÓN ENTRE CRITERIOS:**
-$$
-\begin{array}{c|ccc}
-\text{CRITERIOS} & \text{Costo} & \text{Alcance} & \text{ROI} \\
-\hline
-\text{Costo} & 1 & \frac{1}{3} & \frac{1}{2} \\
-\text{Alcance} & 3 & 1 & 2 \\
-\text{ROI} & 2 & \frac{1}{2} & 1 \\
-\end{array}
-$$
-
-
-
-##### **MATRIZ DE COMPARACIÓN ENTRE ALTERNATIVAS SEGÚN CRITERIOS:**
-###### PARA EL CRITERIO COSTO:
-$$
-\begin{array}{c|ccc}
-\text{COSTO} & \text{Marketing de Contenidos} & \text{Publicidad en Redes Sociales} & \text{SEO} \\
-\hline
-\text{Marketing de Contenidos} & 1 & 3 & 2 \\
-\text{Publicidad en Redes Sociales} & \frac{1}{3} & 1 & \frac{1}{2} \\
-\text{SEO} & \frac{1}{2} & 2 & 1 \\
-\end{array}
-$$
-<br>
-
-###### PARA EL CRITERIO ALCANCE:
-$$
-\begin{array}{c|ccc}
-\text{ALCANCE} & \text{Marketing de Contenidos} & \text{Publicidad en Redes Sociales} & \text{SEO} \\
-\hline
-\text{Marketing de Contenidos} & 1 & \frac{1}{2} & \frac{1}{3} \\
-\text{Publicidad en Redes Sociales} & 2 & 1 & \frac{1}{2} \\
-\text{SEO} & 3 & 2 & 1 \\
-\end{array}
-$$
-<br>
-
-###### PARA EL CRITERIO ROI:
-$$
-\begin{array}{c|ccc}
-\text{ROI} & \text{Marketing de Contenidos} & \text{Publicidad en Redes Sociales} & \text{SEO} \\
-\hline
-\text{Marketing de Contenidos} & 1 & \frac{1}{4} & \frac{1}{3} \\
-\text{Publicidad en Redes Sociales} & 4 & 1 & \frac{1}{2} \\
-\text{SEO} & 3 & 2 & 1 \\
-\end{array}
-$$
 
 
 
