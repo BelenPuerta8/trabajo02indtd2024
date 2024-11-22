@@ -496,41 +496,72 @@ Si solo consideramos la Flexibilidad como criterio para la elección de la mejor
 #### **Consistencia:**
 ##### Consistencia de los criterios:
 ```{r}
-
+multicriterio.metodoAHP.coef.inconsistencia(Xmat_criterios)
 ```
+La consistencia de la matriz de comparación de criterios es aceptable, cumpliendo con los parámetros establecidos. Por tanto, las preferencias expresadas en dicha matriz son razonablemente consistentes y pueden considerarse válidas para el análisis de decisiones.
 
-##### Consistencia de las alternativas:
+
+##### Consistencia por criterios:
 ###### Alcance:
 ```{r}
-
+multicriterio.metodoAHP.coef.inconsistencia(Xmat_alcance)
 ```
+La consistencia del Alcance es aceptable.
 
 ###### Costo:
 ```{r}
-
+multicriterio.metodoAHP.coef.inconsistencia(Xmat_costo)
 ```
+La consistencia del Costo es aceptable.
 
 ###### ROI:
 ```{r}
-
+multicriterio.metodoAHP.coef.inconsistencia(Xmat_roi)
 ```
+La consistencia del ROI es aceptable.
 
 ###### Duración:
 ```{r}
-
+multicriterio.metodoAHP.coef.inconsistencia(Xmat_duracion)
 ```
+La consistencia de la Duración es aceptable.
 
 ###### Segmentación:
 ```{r}
-
+multicriterio.metodoAHP.coef.inconsistencia(Xmat_segmentacion)
 ```
+La consistencia de la segmentación es aceptable.
 
 ###### Flexibilidad:
 ```{r}
+multicriterio.metodoAHP.coef.inconsistencia(Xmat_flexibilidad)
+```
+La consistencia de la flexibilidad es aceptable.
+
+
+
+#### **Pesos globales:**
+```{r}
+tabla.pesosglobales.ahp =
+multicriterio.metodoAHP.pesosglobales_entabla(
+    pesos.criterios$valoraciones.ahp,
+    rbind(pesos.alcance$valoraciones.ahp,
+          pesos.costo$valoraciones.ahp,
+          pesos.ROI$valoraciones.ahp,
+          pesos.duracion$valoraciones.ahp,
+          pesos.segmentacion$valoraciones.ahp,
+          pesos.flexibilidad$valoraciones.ahp))
+knitr::kable(tabla.pesosglobales.ahp) 
+
+# En porcentajes:
+knitr::kable(tabla.pesosglobales.ahp*100,digits = 2)
+
+
 
 ```
-
-
+La alternativa con mayor ponderador global es A4 (0.2137), es decir, Publicidad en Buscadores. En consecuencia, podemos considerar esta alternativa como la más preferida en función de los criterios que hemos considerado. 
+En segundo lugar se encuentra la alternativa 5 (0.2031), en tercer lugar la alternativa 3 (0.2010) y en cuarto lugar la alternativa 4 (0.2).
+En último lugar se encuentra A2 (0.1819), es decir, Marketing de Contenidos. En consecuencia, podemos decir que esta alternativa es la menos preferida en función de los criterios que hemos considerado.
 
 
 
