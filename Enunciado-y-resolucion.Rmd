@@ -17,11 +17,9 @@ knitr::opts_chunk$set(echo = TRUE)
 
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE}
-source("C:/Users/Usuario/OneDrive/Escritorio/trabajo02indtd2024/teoriadecision_funciones_bayesiana.R")
-source("C:/Users/Usuario/OneDrive/Escritorio/trabajo02indtd2024/teoriadecision_funciones_incertidumbre.R")
-source("C:/Users/Usuario/OneDrive/Escritorio/trabajo02indtd2024/teoriadecision_funciones_multicriterio.R")
-source("C:/Users/Usuario/OneDrive/Escritorio/trabajo02indtd2024/teoriadecision_funciones_multicriterio_diagram.R")
-source("C:/Users/Usuario/OneDrive/Escritorio/trabajo02indtd2024/teoriadecision_funciones_multicriterio_utiles.R")
+source("teoriadecision_funciones_multicriterio.R")
+source("teoriadecision_funciones_multicriterio_diagram.R")
+source("teoriadecision_funciones_multicriterio_utiles.R")
 ```
 
 
@@ -568,10 +566,46 @@ En último lugar se encuentra A2 (0.1819), es decir, Marketing de Contenidos. En
 
 
 ### 3.2 Librería AHP
+```{r}
+# install.packages("remotes") # Instalar remotes si no lo tienes
+# remotes::install_github("gluc/ahp", force = TRUE) # Instalar ahp desde GitHub
+library(ahp) 
+
+#ahp::RunGUI()
+datosAHP = ahp::Load("datosAHP.ahp")
+datosAHP
+```
 
 
+#### **Diagramas de jerarquías:**
+```{r}
+Calculate(datosAHP)
+Visualize(datosAHP)
 
+Visualize_mej = function(modeloahp) {
+  sink("temp.txt")
+  s1 = Visualize(modeloahp)
+  sink()
+  unlink("temp.txt")
+  s1
+}
+Visualize_mej(datosAHP)
+```
 
+#### **Prioridades:**
+```{r}
+print(datosAHP, priority= function(x)x$parent$priority["Total", x$name])
+
+# Analizar
+Analyze(datosAHP,variable="priority" ,sort ="orig")
+
+# Analizar con Tabla Mejorada
+aa = AnalyzeTable(datosAHP)
+formattable::as.htmlwidget(aa)
+
+aab = AnalyzeTable(datosAHP,variable = "priority")
+formattable::as.htmlwidget(aab)
+```
 
 
 
