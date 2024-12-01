@@ -1,112 +1,111 @@
 Version: 2.0
 Alternatives: &alternatives
-  - Publicidad en Redes Sociales
-  - Marketing de Contenidos
-  - Email Marketing
-  - Publicidad en Buscadores
-  - Colaboraciones con Influencers
+  - A1
+  - A2
+  - A3
+  - A4
+  - A5
 Goal:
-  name: Selección de Estrategia de Marketing Digital
+  name: Seleccion de Estrategia de Marketing Digital
   preferences:
     pairwise:
-      # Comparaciones por pares entre los criterios según su importancia relativa
-      - [Alcance, Costo, 3/2]
-      - [Alcance, ROI, 2/3]
-      - [Alcance, Duracion, 3]
-      - [Alcance, Segmentacion, 5/4]
-      - [Alcance, Flexibilidad, 3/2]
-      - [Costo, ROI, 2/3]
-      - [Costo, Duracion, 2]
-      - [Costo, Segmentacion, 4/5]
+      - [Alcance, Costo, 3]
+      - [Alcance, ROI, 1/2]
+      - [Alcance, Duracion, 5]
+      - [Alcance, Segmentacion, 2]
+      - [Alcance, Flexibilidad, 3]
+      - [Costo, ROI, 1/5]
+      - [Costo, Duracion, 3]
+      - [Costo, Segmentacion, 1/2]
       - [Costo, Flexibilidad, 1]
-      - [ROI, Duracion, 7/2]
-      - [ROI, Segmentacion, 7/5]
-      - [ROI, Flexibilidad, 7/5]
-      - [Duracion, Segmentacion, 4/5]
+      - [ROI, Duracion, 7]
+      - [ROI, Segmentacion, 3]
+      - [ROI, Flexibilidad, 5]
+      - [Duracion, Segmentacion, 1/3]
       - [Duracion, Flexibilidad, 1/2]
-      - [Segmentacion, Flexibilidad, 5/4]
+      - [Segmentacion, Flexibilidad, 2]
   children:
     Alcance:
       preferences:
         pairwise:
-          - [Publicidad en Redes Sociales, Marketing de Contenidos, 17/14]
-          - [Publicidad en Redes Sociales, Email Marketing, 17/12]
-          - [Publicidad en Redes Sociales, Publicidad en Buscadores, 17/15]
-          - [Publicidad en Redes Sociales, Colaboraciones con Influencers, 17/18]
-          - [Marketing de Contenidos, Email Marketing, 14/12]
-          - [Marketing de Contenidos, Publicidad en Buscadores, 14/15]
-          - [Marketing de Contenidos, Colaboraciones con Influencers, 14/18]
-          - [Email Marketing, Publicidad en Buscadores, 12/15]
-          - [Email Marketing, Colaboraciones con Influencers, 12/18]
-          - [Publicidad en Buscadores, Colaboraciones con Influencers, 15/18]
+          - [A1, A2, 3]
+          - [A1, A3, 5]
+          - [A1, A4, 2]
+          - [A1, A5, 1/2]
+          - [A2, A3, 2]
+          - [A2, A4, 1/2]
+          - [A2, A5, 1/5]
+          - [A3, A4, 1/3]
+          - [A3, A5, 1/7]
+          - [A4, A5, 1/3]
       children: *alternatives
     Costo:
       preferences:
         pairwise:
-          - [Publicidad en Redes Sociales, Marketing de Contenidos, 2/3]
-          - [Publicidad en Redes Sociales, Email Marketing, 1/3]
-          - [Publicidad en Redes Sociales, Publicidad en Buscadores, 5/6]
-          - [Publicidad en Redes Sociales, Colaboraciones con Influencers, 6/7]
-          - [Marketing de Contenidos, Email Marketing, 1/2]
-          - [Marketing de Contenidos, Publicidad en Buscadores, 5/8]
-          - [Marketing de Contenidos, Colaboraciones con Influencers, 7/9]
-          - [Email Marketing, Publicidad en Buscadores, 5/2]
-          - [Email Marketing, Colaboraciones con Influencers, 7/4]
-          - [Publicidad en Buscadores, Colaboraciones con Influencers, 7/5]
+          - [A1, A2, 1/2]
+          - [A1, A3, 1/3]
+          - [A1, A4, 2]
+          - [A1, A5, 1/3]
+          - [A2, A3, 1/2]
+          - [A2, A4, 3]
+          - [A2, A5, 1/2]
+          - [A3, A4, 4]
+          - [A3, A5, 1]
+          - [A4, A5, 1/5]
       children: *alternatives
     ROI:
       preferences:
         pairwise:
-          - [Publicidad en Redes Sociales, Marketing de Contenidos, 5/4]
-          - [Publicidad en Redes Sociales, Email Marketing, 3/2]
-          - [Publicidad en Redes Sociales, Publicidad en Buscadores, 6/7]
-          - [Publicidad en Redes Sociales, Colaboraciones con Influencers, 10/13]
-          - [Marketing de Contenidos, Email Marketing, 6/5]
-          - [Marketing de Contenidos, Publicidad en Buscadores, 5/7]
-          - [Marketing de Contenidos, Colaboraciones con Influencers, 13/10]
-          - [Email Marketing, Publicidad en Buscadores, 7/5]
-          - [Email Marketing, Colaboraciones con Influencers, 7/10]
-          - [Publicidad en Buscadores, Colaboraciones con Influencers, 13/7]
+          - [A1, A2, 3]
+          - [A1, A3, 1/2]
+          - [A1, A4, 2]
+          - [A1, A5, 5]
+          - [A2, A3, 1/5]
+          - [A2, A4, 1/2]
+          - [A2, A5, 3]
+          - [A3, A4, 3]
+          - [A3, A5, 7]
+          - [A4, A5, 4]
       children: *alternatives
     Duracion:
       preferences:
         pairwise:
-          - [Publicidad en Redes Sociales, Marketing de Contenidos, 2/3]
-          - [Publicidad en Redes Sociales, Email Marketing, 5/7]
-          - [Publicidad en Redes Sociales, Publicidad en Buscadores, 3/5]
-          - [Publicidad en Redes Sociales, Colaboraciones con Influencers, 1/2]
-          - [Marketing de Contenidos, Email Marketing, 7/5]
-          - [Marketing de Contenidos, Publicidad en Buscadores, 5/3]
-          - [Marketing de Contenidos, Colaboraciones con Influencers, 2/5]
-          - [Email Marketing, Publicidad en Buscadores, 7/10]
-          - [Email Marketing, Colaboraciones con Influencers, 5/9]
-          - [Publicidad en Buscadores, Colaboraciones con Influencers, 3/5]
+          - [A1, A2, 1/2]
+          - [A1, A3, 2]
+          - [A1, A4, 3]
+          - [A1, A5, 2]
+          - [A2, A3, 3]
+          - [A2, A4, 5]
+          - [A2, A5, 3]
+          - [A3, A4, 2]
+          - [A3, A5, 1]
+          - [A4, A5, 1/2]
       children: *alternatives
     Segmentacion:
       preferences:
         pairwise:
-          - [Publicidad en Redes Sociales, Marketing de Contenidos, 9/8]
-          - [Publicidad en Redes Sociales, Email Marketing, 8/7]
-          - [Publicidad en Redes Sociales, Publicidad en Buscadores, 9/10]
-          - [Publicidad en Redes Sociales, Colaboraciones con Influencers, 10/7]
-          - [Marketing de Contenidos, Email Marketing, 7/6]
-          - [Marketing de Contenidos, Publicidad en Buscadores, 9/11]
-          - [Marketing de Contenidos, Colaboraciones con Influencers, 11/8]
-          - [Email Marketing, Publicidad en Buscadores, 8/9]
-          - [Email Marketing, Colaboraciones con Influencers, 9/7]
-          - [Publicidad en Buscadores, Colaboraciones con Influencers, 7/6]
+          - [A1, A2, 3]
+          - [A1, A3, 2]
+          - [A1, A4, 1/2]
+          - [A1, A5, 5]
+          - [A2, A3, 1/2]
+          - [A2, A4, 1/5]
+          - [A2, A5, 3]
+          - [A3, A4, 1/3]
+          - [A3, A5, 4]
+          - [A4, A5, 7]
       children: *alternatives
     Flexibilidad:
       preferences:
         pairwise:
-          - [Publicidad en Redes Sociales, Marketing de Contenidos, 4/3]
-          - [Publicidad en Redes Sociales, Email Marketing, 3/2]
-          - [Publicidad en Redes Sociales, Publicidad en Buscadores, 5/4]
-          - [Publicidad en Redes Sociales, Colaboraciones con Influencers, 6/5]
-          - [Marketing de Contenidos, Email Marketing, 2/3]
-          - [Marketing de Contenidos, Publicidad en Buscadores, 4/5]
-          - [Marketing de Contenidos, Colaboraciones con Influencers, 5/6]
-          - [Email Marketing, Publicidad en Buscadores, 3/4]
-          - [Email Marketing, Colaboraciones con Influencers, 4/5]
-          - [Publicidad en Buscadores, Colaboraciones con Influencers, 3/2]
+          - [A1, A2, 3]
+          - [A1, A3, 2]
+          - [A1, A4, 1]
+          - [A1, A5, 3]
+          - [A2, A3, 1/2]
+          - [A2, A4, 1/3]
+          - [A2, A5, 1]
+          - [A3, A4, 1/2]
+          - [A3, A5, 2]
+          - [A4, A5, 3]
       children: *alternatives

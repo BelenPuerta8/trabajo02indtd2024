@@ -397,7 +397,7 @@ kable(Xmat_segmentacion, caption = "SEGMENTACIÓN")
 
 # Criterio: Flexibilidad
 # Se maximiza la flexibilidad, así que las alternativas con mayores valores son más favorables.
-Xmat_flexibilidad <- multicriterio.crea.matrizvaloraciones(
+Xmat_flexibilidad <- multicriterio.crea.matrizvaloraciones_mej(
   c(3, 2, 1, 3,
       1/2, 1/3, 1,
            1/2, 2,
@@ -429,7 +429,7 @@ dimnames(Xmatriznivel2)[[3]] = n_criterios
 
 multicriterio.metodoahp.diagrama(Xmat_criterios,Xmatriznivel2)
 ```
-<br>La mejor alternativa es A4 (Publicidad en Buscadores) con el mayor valor y la peor A2 (Marketing de contenidos) con el menor.
+<br>La mejor alternativa es A3 (Publicidad en Buscadores) con el mayor valor y la peor A2 (Marketing de contenidos) con el menor.
 
 
 #### **Pesos locales:**
@@ -438,7 +438,7 @@ multicriterio.metodoahp.diagrama(Xmat_criterios,Xmatriznivel2)
 pesos.criterios = multicriterio.metodoAHP.variante3.basico(Xmat_criterios)
 pesos.criterios
 ```
-El criterio con mayor importancia es el ROI, con un peso de 0.2454, destacándose por encima de los demás criterios. En cambio, Duración es la menos relevante, con un peso de 0.0815, ya que tiene un impacto mínimo en la decisión final. Costo (0.1457), Alcance (0.2082), Flexibilidad (0.1609) y Segmentación (0.1583) tienen una importancia intermedia, con valores similares entre ellos, aunque el ROI y el Alcance sobresalen ligeramente.
+El criterio con mayor importancia es el ROI, con un peso de 0.4044, destacándose por encima de los demás criterios. En cambio, Duración es la menos relevante, con un peso de 0.0443, ya que tiene un impacto mínimo en la decisión final. Costo (0.0887), Alcance (0.2389), Flexibilidad (0.0808) y Segmentación (0.1426) tienen una importancia intermedia, con valores similares entre ellos, aunque el ROI y el Alcance sobresalen ligeramente.
 
 ##### Pesos locales de las alternativas en función de cada criterio:
 ###### Alcance:
@@ -446,7 +446,7 @@ El criterio con mayor importancia es el ROI, con un peso de 0.2454, destacándos
 pesos.alcance= multicriterio.metodoAHP.variante3.basico(Xmat_alcance)
 pesos.alcance
 ```
-Si solo consideramos el Alcance como criterio para la elección de la mejor alternativa, los resultados obtenidos para la elección de la mejor alternativa son: A5(0.2368) > A1(0.2237) > A4(0.1974) > A2(0.1842) > A3(0.1579).
+Si solo consideramos el Alcance como criterio para la elección de la mejor alternativa, los resultados obtenidos para la elección de la mejor alternativa son: A5(0.4436) > A1(0.2618) > A4(0.1528) > A2(0.0891) > A3(0.0526).
 
 
 ###### Costo:
@@ -454,7 +454,7 @@ Si solo consideramos el Alcance como criterio para la elección de la mejor alte
 pesos.costo= multicriterio.metodoAHP.variante3.basico(Xmat_costo)
 pesos.costo
 ```
-Si solo consideramos el Costo como criterio para la elección de la mejor alternativa, los resultados obtenidos para la elección de la mejor alternativa son: A3(0.3573) > A4(0.1915) > A5(0.1694) > A2(0.1532) > A1(0.1285).
+Si solo consideramos el Costo como criterio para la elección de la mejor alternativa, los resultados obtenidos para la elección de la mejor alternativa son: A5(0.3291) > A3(0.3158) > A2(0.1817) > A1(0.1084) > A4(0.0646).
 
 
 ###### ROI:
@@ -462,7 +462,7 @@ Si solo consideramos el Costo como criterio para la elección de la mejor altern
 pesos.ROI= multicriterio.metodoAHP.variante3.basico(Xmat_roi)
 pesos.ROI
 ```
-Si solo consideramos el ROI como criterio para la elección de la mejor alternativa, los resultados obtenidos para la elección de la mejor alternativa son: A4(0.2354) > A1(0.2048) > A5(0.1903) > A2(0.1894) > A3(0.1799).
+Si solo consideramos el ROI como criterio para la elección de la mejor alternativa, los resultados obtenidos para la elección de la mejor alternativa son: A3(0.4382) > A1(0.2577) > A4(0.1603) > A2(0.0973) > A5(0.0463).
 
 
 ###### Duración:
@@ -470,7 +470,7 @@ Si solo consideramos el ROI como criterio para la elección de la mejor alternat
 pesos.duracion= multicriterio.metodoAHP.variante3.basico(Xmat_duracion)
 pesos.duracion
 ```
-Si solo consideramos la Duración como criterio para la elección de la mejor alternativa, los resultados obtenidos para la elección de la mejor alternativa son: A5(0.3254) > A2(0.2056) > A4(0.1857) > A3(0.1558) > A1(0.1273).
+Si solo consideramos la Duración como criterio para la elección de la mejor alternativa, los resultados obtenidos para la elección de la mejor alternativa son: A2(0.4137) > A1(0.2412) > A3(0.1353) = A5(0.1353) > A4(0.0743).
 
 
 ###### Segmentación:
@@ -478,7 +478,7 @@ Si solo consideramos la Duración como criterio para la elección de la mejor al
 pesos.segmentacion= multicriterio.metodoAHP.variante3.basico(Xmat_segmentacion)
 pesos.segmentacion
 ```
-Si solo consideramos la Segmentación como criterio para la elección de la mejor alternativa, los resultados obtenidos para la elección de la mejor alternativa son: A4(0.2234) > A1(0.2191) > A2(0.2047) > A3(0.1923) > A5(0.1603).
+Si solo consideramos la Segmentación como criterio para la elección de la mejor alternativa, los resultados obtenidos para la elección de la mejor alternativa son: A4(0.4382) > A1(0.2577) > A3(0.1603) > A2(0.0973) > A5(0.0463).
 
 
 ###### Flexibilidad:
@@ -486,7 +486,7 @@ Si solo consideramos la Segmentación como criterio para la elección de la mejo
 pesos.flexibilidad= multicriterio.metodoAHP.variante3.basico(Xmat_flexibilidad)
 pesos.flexibilidad
 ```
-Si solo consideramos la Flexibilidad como criterio para la elección de la mejor alternativa, los resultados obtenidos para la elección de la mejor alternativa son: A1(0.2449) > A4(0.2266) > A5(0.1901) > A3(0.1790) > A2(0.1591).
+Si solo consideramos la Flexibilidad como criterio para la elección de la mejor alternativa, los resultados obtenidos para la elección de la mejor alternativa son: A1(0.3129) = A4(0.3129) > A3(0.1764) > A2(0.0987) = A5(0.0987).
 
 
 
@@ -556,9 +556,9 @@ knitr::kable(tabla.pesosglobales.ahp*100,digits = 2)
 
 
 ```
-La alternativa con mayor ponderador global es A4 (0.2137), es decir, Publicidad en Buscadores. En consecuencia, podemos considerar esta alternativa como la más preferida en función de los criterios que hemos considerado. 
-En segundo lugar se encuentra la alternativa 5 (0.2031), en tercer lugar la alternativa 3 (0.2010) y en cuarto lugar la alternativa 4 (0.2).
-En último lugar se encuentra A2 (0.1819), es decir, Marketing de Contenidos. En consecuencia, podemos decir que esta alternativa es la menos preferida en función de los criterios que hemos considerado.
+Hablando en porcentajes, la alternativa con mayor ponderador global es A3 (26.10), es decir, Email Marketing. En consecuencia, podemos considerar esta alternativa como la más preferida en función de los criterios que hemos considerado. 
+En segundo lugar se encuentra la alternativa 1 (24.92), en tercer lugar la alternativa 4 (19.82) y en cuarto lugar la alternativa 5 (17.45).
+En último lugar se encuentra A2 (11.70), es decir, Marketing de Contenidos. En consecuencia, podemos decir que esta alternativa es la menos preferida en función de los criterios que hemos considerado.
 
 
 
@@ -566,20 +566,18 @@ En último lugar se encuentra A2 (0.1819), es decir, Marketing de Contenidos. En
 
 ### 3.2 Librería AHP
 ```{r}
-# install.packages("remotes") # Instalar remotes si no lo tienes
-# remotes::install_github("gluc/ahp", force = TRUE) # Instalar ahp desde GitHub
 library(ahp) 
 
-#ahp::RunGUI()
+# ahp::RunGUI()
 datosAHP = ahp::Load("datosAHP.ahp")
 datosAHP
 ```
 
 
 #### **Diagramas de jerarquías:**
-```{r}
+```{r message=FALSE, warning=FALSE}
 Calculate(datosAHP)
-Visualize(datosAHP)
+# Visualize(datosAHP)
 
 Visualize_mej = function(modeloahp) {
   sink("temp.txt")
@@ -606,5 +604,12 @@ aab = AnalyzeTable(datosAHP,variable = "priority")
 formattable::as.htmlwidget(aab)
 ```
 
+<u>**CONCLUSIÓN**</u>: La alternativa A3 es la mejor opción, con una prioridad del 40.6%. Además, tiene un nivel de inconsistencia bajo de 1.1%, lo que indica que las comparaciones realizadas entre las alternativas son consistentes y sin contradicciones significativas. En contraste, la alternativa A4 tiene la menor prioridad, con solo 16.0%, pero su inconsistencia también es baja, alcanzando un 1.8%. A pesar de su baja inconsistencia, A4 es la alternativa menos preferida.
 
 
+
+## CONCLUSIÓN FINAL
+Los resultados obtenidos mediante los diferentes métodos de análisis multicriterio (PROMETHEE, ELECTRE y AHP)
+indican de manera consistente que la estrategia más adecuada para Tech Solutions es la Publicidad en Redes Sociales (A1). Esta opción se destaca por su alto alcance, gran capacidad de segmentación y flexibilidad, lo que la convierte en la opción más eficaz para llegar al público objetivo y adaptarse a posibles cambios en el mercado. Aunque su costo es relativamente elevado, su retorno de inversión (ROI) de 150% y su duración de 12 meses hacen que sea una estrategia rentable a largo plazo.
+
+En comparación con las otras alternativas, A1 sobresale en los aspectos más cruciales del marketing digital, como la eficacia en la captación de clientes y la capacidad de adaptación, lo que justifica su elección como la mejor opción. Por lo tanto, se recomienda que Tech Solutions implemente la Publicidad en Redes Sociales como la principal estrategia de marketing digital para el próximo año, con el objetivo de maximizar su visibilidad y fortalecer su presencia en el mercado.
