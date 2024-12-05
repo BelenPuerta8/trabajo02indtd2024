@@ -604,7 +604,7 @@ aab = AnalyzeTable(datosAHP,variable = "priority")
 formattable::as.htmlwidget(aab)
 ```
 
-<u>**CONCLUSIÓN**</u>: La alternativa A3 es la mejor opción, con una prioridad del 44%. En contraste, la alternativa A5 tiene la menor prioridad, con solo 4.6%, luego es la alternativa menos preferida.
+<u>**CONCLUSIÓN**</u>: La alternativa A3 es la mejor opción, con una prioridad del 44.2%. En contraste, la alternativa A2 tiene la menor prioridad, con solo 6.9%, luego es la alternativa menos preferida.
 
 
 

@@ -44,14 +44,14 @@ Goal:
         pairwise:
           - [A1, A2, 1/2]
           - [A1, A3, 1/3]
-          - [A1, A4, 2]
-          - [A1, A5, 1/3]
+          - [A1, A4, 1/2]
+          - [A1, A5, 2]
           - [A2, A3, 1/2]
-          - [A2, A4, 3]
-          - [A2, A5, 1/2]
+          - [A2, A4, 2]
+          - [A2, A5, 3]
           - [A3, A4, 4]
-          - [A3, A5, 1]
-          - [A4, A5, 1/5]
+          - [A3, A5, 5]
+          - [A4, A5, 3]
       children: *alternatives
     ROI:
       preferences:
@@ -62,10 +62,10 @@ Goal:
           - [A1, A5, 5]
           - [A2, A3, 1/5]
           - [A2, A4, 1/2]
-          - [A2, A5, 3]
+          - [A2, A5, 1/2]
           - [A3, A4, 3]
           - [A3, A5, 7]
-          - [A4, A5, 4]
+          - [A4, A5, 3]
       children: *alternatives
     Duracion:
       preferences:
@@ -77,16 +77,16 @@ Goal:
           - [A2, A3, 3]
           - [A2, A4, 5]
           - [A2, A5, 3]
-          - [A3, A4, 2]
+          - [A3, A4, 1/2]
           - [A3, A5, 1]
-          - [A4, A5, 1/2]
+          - [A4, A5, 2]
       children: *alternatives
     Segmentacion:
       preferences:
         pairwise:
           - [A1, A2, 3]
           - [A1, A3, 2]
-          - [A1, A4, 1/2]
+          - [A1, A4, 2]
           - [A1, A5, 5]
           - [A2, A3, 1/2]
           - [A2, A4, 1/5]
